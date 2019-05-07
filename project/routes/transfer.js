@@ -13,7 +13,7 @@ router.get('/:id', function (req, res, next) {
                 for (var i = 0; i < value.links.length; i++) {
                     var link = value.links[i];
                     var weight =10;
-                    if(value.weights>i){
+                    if(value.weights.length>i){
                         weight = value.weights[i]
                     }
                     for (var j = 0; j < weight; j++) {
@@ -37,7 +37,7 @@ router.get('/:id', function (req, res, next) {
                         for (var i = 0; i < value.links.length; i++) {
                             var link = value.links[i];
                             var weight =10;
-                            if(value.weights>i){
+                            if(value.weights.length>i){
                                 weight = value.weights[i]
                             }
                             for (var j = 0; j < weight; j++) {
