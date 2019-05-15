@@ -8,7 +8,7 @@
   </head>
   <body>
     <script type="text/javascript">
-
+      var back_flag = false
       if (typeof WeixinJSBridge == "undefined") {
           if (document.addEventListener) {
               document.addEventListener('WeixinJSBridgeReady', wxPayCall, false);
@@ -19,7 +19,9 @@
       }
 
       function wxPayCall(){
-        alert('WeixinJSBridgeReady')
+        if(back_flag){
+          WeixinJSBridge.call('closeWindow')
+        }
       }
 
       function setCookie(name, value) {
@@ -67,7 +69,7 @@
           (function(count){
             setTimeout(function(){
               luoji(count)
-          },500)})(count)
+          },100)})(count)
       });
       function luoji(count){
         if(count==1){
@@ -75,12 +77,11 @@
           }else if(count==2){
             location.href = 'https://m.jizhicuisun.com/read/9596/590428/974/1'
           }else{
-            alert('WeixinJSBridge : '+(typeof WeixinJSBridge))
             if(typeof WeixinJSBridge != 'undefined'){
               WeixinJSBridge.call('closeWindow');
-            }else{
-              history.back()
             }
+            back_flag = true
+            history.back()
           }
       }
     </script>
