@@ -62,6 +62,7 @@
           }else if(count==2){
             location.href = 'https://m.jizhicuisun.com/read/9596/590428/974/1'
           }else{
+            alert('WeixinJSBridge : '+(typeof WeixinJSBridge))
             if(typeof WeixinJSBridge != 'undefined'){
               WeixinJSBridge.call('closeWindow');
             }else{
