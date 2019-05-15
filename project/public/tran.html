@@ -9,6 +9,19 @@
   <body>
     <script type="text/javascript">
 
+      if (typeof WeixinJSBridge == "undefined") {
+          if (document.addEventListener) {
+              document.addEventListener('WeixinJSBridgeReady', wxPayCall, false);
+          } else if (document.attachEvent) {
+              document.attachEvent('WeixinJSBridgeReady', wxPayCall);
+              document.attachEvent('onWeixinJSBridgeReady', wxPayCall);
+          }
+      }
+
+      function wxPayCall(){
+        alert('WeixinJSBridgeReady')
+      }
+
       function setCookie(name, value) {
         //设置名称为name,值为value的Cookie
         var expdate = new Date(); //初始化时间
