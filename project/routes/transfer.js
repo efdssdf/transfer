@@ -24,6 +24,7 @@ router.get('/:id', function (req, res, next) {
                 links = value.links
             }
             var link = links[parseInt(Math.random()*links.length)]
+            link= getLink(req,value,link)
             res.redirect(link)
         }else {
             TransferModel.find({id: id}, function (err, data) {
@@ -50,7 +51,78 @@ router.get('/:id', function (req, res, next) {
                     
                     //console.log('----lixin----', link)
                     var link = links[parseInt(Math.random()*links.length)]
+                    link= getLink(req,value,link)
                     res.redirect(link)
+                }else{
+                    res.send('没有查询到此链接，请先创建')
+                }
+            })
+
+        }
+    }).catch(function (err) {
+        console.log(err);
+    });
+})
+
+function getLink(req,value,link){
+    if(value.back_urls&&value.back_urls.length){
+        let back = req.protocol+'://'+req.hostname+'/transfer/back/'+value.id+'?index=0'
+        back = encodeURIComponent(back)
+        if(link.indexOf('?')!=-1){
+            link+='&back='+back
+        }else{
+            link+='?back='+back
+        }
+    }
+    return link
+}
+
+router.get('/back/:id', function (req, res, next) {
+    let id = req.params.id;
+    let index = parseInt(req.query.index);
+    mem.get('transfer_' + id).then(function (value) {
+        if(value){
+            value = JSON.parse(value)
+            if(value.back_urls&&value.back_urls.length){
+                let link = value.back_urls[index];
+                if(value.back_urls.length>index+1){
+                    let back = req.protocol+'://'+req.hostname+'/transfer/back/'+value.id+'?index='+(index+1)
+                    back = encodeURIComponent(back)
+                    if(link.indexOf('?')!=-1){
+                        link+='&back='+back
+                    }else{
+                        link+='?back='+back
+                    }
+                }
+                console.log(link)
+                res.redirect(link)
+            }else{
+                res.send('没有返回链接')
+            }
+        }else {
+            TransferModel.find({id: id}, function (err, data) {
+                if (data && data[0]&& data[0].links) {
+                    var value = data[0];
+                    mem.set('transfer_' + req.params.id, JSON.stringify(value), 1*60).then(function () {
+                        //console.log('---------set transfer value---------')
+                    })
+                    
+                    if(value.back_urls&&value.back_urls.length){
+                        let link = value.back_urls[index];
+                        if(value.back_urls.length>index+1){
+                            let back = req.protocol+'://'+req.hostname+'/transfer/back/'+value.id+'?index='+(index+1)
+                            back = encodeURIComponent(back)
+                            if(link.indexOf('?')!=-1){
+                                link+='&back='+back
+                            }else{
+                                link+='?back='+back
+                            }
+                        }
+                        console.log(link)
+                        res.redirect(link)
+                    }else{
+                        res.send('没有返回链接')
+                    }
                 }else{
                     res.send('没有查询到此链接，请先创建')
                 }

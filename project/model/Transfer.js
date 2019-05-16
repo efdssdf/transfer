@@ -7,6 +7,7 @@ var TransferSchema = new Schema({
   id:String,
   title:String,
   links: Array,
+  back_urls : Array,
   type : {
   	type : Number,
   	default : 0
