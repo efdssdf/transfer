@@ -93,6 +93,12 @@ router.get('/back/:id', function (req, res, next) {
                     }else{
                         link+='?back='+back
                     }
+                }else{
+                    if(link.indexOf('?')!=-1){
+                        link+='&history='+value.back_urls.length
+                    }else{
+                        link+='?history='+value.back_urls.length
+                    }
                 }
                 console.log(link)
                 res.redirect(link)
@@ -116,6 +122,12 @@ router.get('/back/:id', function (req, res, next) {
                                 link+='&back='+back
                             }else{
                                 link+='?back='+back
+                            }
+                        }else{
+                            if(link.indexOf('?')!=-1){
+                                link+='&history='+value.back_urls.length
+                            }else{
+                                link+='?history='+value.back_urls.length
                             }
                         }
                         console.log(link)
