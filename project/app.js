@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var transfer = require('./routes/transfer');
 var cmst = require('./routes/cmsTransfer');
 var chat = require('./routes/chat');
+var newChat = require('./routes/newChat');
 var novelTransfer = require('./routes/novelTransfer');
 var index = require('./routes/index');
 
@@ -32,6 +33,7 @@ app.use('/cmst',cmst);
 app.use('/tchat',chat);
 app.use('/xchat',chat);
 app.use('/novel_transfer',novelTransfer);
+app.use('/n',newChat);
 app.use('/',index);
 
 // catch 404 and forward to error handler
