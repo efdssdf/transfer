@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var connect_url = require('../conf/proj.json').cms_mongodb;
 var db = mongoose.createConnection(connect_url); 
 
-var TransferSchema = new Schema({
+var CMSTransferSchema = new Schema({
   id:String,
   title:String,
   links: Array,
@@ -15,6 +15,6 @@ var TransferSchema = new Schema({
   weights : Array
 });
 
-var TransferModel = db.model('Transfer', TransferSchema);
+var CMSTransferModel = db.model('Transfer', TransferSchema);
 
-module.exports = TransferModel;
+module.exports = CMSTransferModel;
