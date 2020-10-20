@@ -15,6 +15,6 @@ var CMSTransferSchema = new Schema({
   weights : Array
 });
 
-var CMSTransferModel = db.model('Transfer', TransferSchema);
+var CMSTransferModel = db.model('Transfer', CMSTransferSchema);
 
 module.exports = CMSTransferModel;
